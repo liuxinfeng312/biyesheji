@@ -1,0 +1,66 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+
+{% block extcss %}
+    <link rel="stylesheet" href="{% static 'cart/css/cart.css' %}">
+{% endblock %}
+{% block extjs %}
+    <script src="{% static 'order/js/orderdetail.js' %}"></script>
+{% endblock %}
+
+{% block title %}
+    订单详情
+{% endblock %}
+
+{% block content %}
+    <div class="cart">
+    <div class="back" style="position: relative;left: 550px">
+            <a href="{% url 'axf:orderlist' %}">
+                <span class=" glyphicon glyphicon-remove " style="size: 10em"></span>
+            </a>
+        </div>
+
+            <p style="color: red">订单号: {{ order.identifier }}</p>
+
+        <ul>
+            {% for ordergoods in order.ordergoods_set.all %}
+            <li>
+            <div class="content-wrapper">
+                <div class="img">
+                &nbsp;<img src="{{ ordergoods.goods.productimg }}" alt="">
+                </div>
+                <div class="detail">
+                <p class="name">{{ ordergoods.goods.productlongname }}</p>
+                <p class="price" >{{ ordergoods.goods.price }}</p>
+                <p class="num">x{{ ordergoods.number }}</p>
+                </div>
+            </div>
+            </li>
+            {% endfor %}
+        </ul>
+
+
+        <div class="bill">
+            <div class="bill-left">
+
+                <div class="total">
+                    <span>￥</span>
+                    <b>{{ sum }}</b>
+                </div>
+            </div>
+
+{% if order.status == 0%}
+ <button class="bill-right" id="alipay" data-orderid="{{ order.id }}">支付
+{% endif %}
+
+
+
+{#                    < class="btn btn-default" id="alipay" data-orderid="{{ order.id }}"></button>#}
+
+ </button>
+
+    </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+    登录
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block extcss %}
+     <link rel="stylesheet" href="{% static 'mine/css/registe.css' %}">
+{% endblock %}
+
+{% block extjs %}
+    <script src="{% static 'mine/js/login.js' %}"></script>
+{#    <script src="{% static 'mine/js/registerr.js' %}"></script>#}
+{% endblock %}
+
+{% block content %}
+     <div class="register">
+     <div class="back">
+            <a href="{% url 'axf:mine' %}">
+                <span class=" glyphicon glyphicon-remove "></span>
+            </a>
+        </div>
+    <form action="{% url 'axf:login' %}" method="post">
+    {% csrf_token %}
+
+    <div class="input-group">
+        <span class="input-group-addon">昵称</span>
+        <input type="text" placeholder="请输入用户名" name="name" class="form-control">
+    </div>
+
+     <div class="input-group">
+        <span class="input-group-addon">密码</span>
+        <input type="password" placeholder="请输入密码" name="password" class="form-control">
+     </div>
+    <input type="submit" value="登陆" id="subButton">
+        <span style="color: red">{{ err }}</span>
+
+
+
+    </form>
+
+    </div>
+
+
+{% endblock %}
